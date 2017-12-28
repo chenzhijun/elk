@@ -1,0 +1,20 @@
+filebeat.prospectors:
+- paths:
+    - /home/logs/customer/*.log
+  multiline:
+      pattern: ^\d{4}
+      negate: true
+      match: after
+  fields:
+    doc_type: customer 
+- paths:
+    - /home/logs/order/*.log
+  multiline:
+      pattern: ^\d{4}
+      negate: true
+      match: after
+  fields:
+    doc_type: order
+output.logstash:
+  hosts: ["logstash:5043"]
+
