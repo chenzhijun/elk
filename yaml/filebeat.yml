@@ -6,7 +6,7 @@ filebeat.prospectors:
       negate: true
       match: after
   fields:
-    doc_type: customer 
+    doc_type: customer
 - paths:
     - /home/logs/order/*.log
   multiline:
@@ -16,5 +16,5 @@ filebeat.prospectors:
   fields:
     doc_type: order
 output.logstash:
-  hosts: ["logstash:5043"]
+  hosts: ["logstash:5044"]
 

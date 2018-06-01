@@ -1,21 +1,42 @@
-version: "3"
+version: "3.5"
 
 services:
   elasticsearch:
     image: lenic/elasticsearch-oss:6.2.4
+    environment:
+      - ELASTICSEARCH_USERNAME=admin
+      - ELASTICSEARCH_PASSWORD=admin@123
     ports:
-      - 9200:9200
-      - 9300:9200
+      - target: 9200
+        published: 9200
+        protocol: tcp
+        mode: host
+      - target: 9300
+        published: 9300
+        protocol: tcp
+        mode: host
 
   kibana:
     image: lenic/kibana-oss:6.2.4
     ports:
-      - 5601:5601
+      - target: 5601
+        published: 5601
+        protocol: tcp
+        mode: host
     depends_on:
       - elasticsearch
 
   logstash:
     image: lenic/logstash-oss:6.2.4
+    # ports:
+    #   - target: 5043
+    #     published: 5043
+    #     protocol: tcp
+    #     mode: host
+    #   - target: 9600
+    #     published: 9600
+    #     protocol: tcp
+    #     mode: host
     depends_on:
       - elasticsearch
     volumes:
