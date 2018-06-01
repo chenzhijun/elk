@@ -2,33 +2,27 @@ version: "3"
 
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.1
+    image: lenic/elasticsearch-oss:6.2.4
     ports:
       - 9200:9200
       - 9300:9200
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.1.1
+    image: lenic/kibana-oss:6.2.4
     ports:
       - 5601:5601
     depends_on:
       - elasticsearch
-    links:
-      - elasticsearch
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:6.1.1
-    links:
-      - elasticsearch
+    image: lenic/logstash-oss:6.2.4
     depends_on:
       - elasticsearch
     volumes:
       - ./yaml/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
 
   filebeat:
-    image: docker.elastic.co/beats/filebeat:6.1.1
-    links:
-      - logstash
+    image: lenic/filebeat:6.2.4
     depends_on:
       - logstash
     volumes:
